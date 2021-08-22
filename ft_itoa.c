@@ -12,51 +12,64 @@
 
 #include "libft.h"
 
-static int	ft_abs(int nbr)
+static char	*convert_itoa(char *str, size_t n_size, int n)
 {
-	if (nbr < 0)
-		return (-nbr);
-	else
-		return (nbr);
+	if (n < 0)
+	{
+		str[0] = '-';
+		n *= -1;
+	}
+	str[n_size] = '\0';
+	n_size -= 1;
+	while (n > 9)
+	{
+		str[n_size] = (n % 10) + 48;
+		n /= 10;
+		n_size--;
+	}
+	if (n < 10)
+	{
+		str[n_size] = n + 48;
+	}
+	return (str);
 }
 
-static void	ft_strrev(char *str)
+size_t	ft_nlen(int num)
 {
-	size_t	length;
-	size_t	i;
-	char	tmp;
+	size_t	len;
 
-	length = ft_strlen(str);
-	i = 0;
-	while (i < length / 2)
+	len = 0;
+	if (num < 0)
 	{
-		tmp = str[i];
-		str[i] = str[length - i - 1];
-		str[length - i - 1] = tmp;
-		i++;
+		len++;
 	}
+	while (num)
+	{
+		num /= 10;
+		len++;
+	}
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		is_neg;
-	size_t	length;
+	ssize_t	n_digits;
 
-	is_neg = (n < 0);
-	str = ft_calloc(11 + is_neg, sizeof(*str));
-	if (!(str))
-		return (NULL);
-	if (n == 0)
-		str[0] = '0';
-	length = 0;
-	while (n != 0)
+	if (n == -2147483648)
 	{
-		str[length++] = '0' + ft_abs(n % 10);
-		n = (n / 10);
+		return (ft_strdup("-2147483648"));
 	}
-	if (is_neg)
-		str[length] = '-';
-	ft_strrev(str);
+	if (n == 0)
+	{
+		return (ft_strdup("0"));
+	}
+	n_digits = ft_nlen(n);
+	str = (char *)malloc((n_digits + 1) * sizeof(char));
+	if (!str)
+	{
+		return (NULL);
+	}
+	convert_itoa (str, n_digits, n);
 	return (str);
 }
