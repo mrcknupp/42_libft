@@ -29,7 +29,7 @@ int	ft_atoi(const char *nptr)
 	int	negative;
 
 	negative = 0;
-	str = 0; 
+	str = 0;
 	while (ft_isspace(*nptr))
 	{
 		nptr++;
