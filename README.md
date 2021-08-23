@@ -9,4 +9,4 @@ Tripouille Test => https://github.com/Tripouille/libftTester.git
 
 War Machine => https://github.com/ska42/libft-war-machine.git
 
-LibfTest => https://github.com/jtoty/Libftest
+LibfTest => https://github.com/jtoty/Libftest.git
